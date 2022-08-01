@@ -1,0 +1,24 @@
+<div class="main" [ngClass]="noDetails ? 'main__hidden': ''">
+    <div class="main__noData" *ngIf="noDetails">
+        <h2>Kindly allow location!</h2>
+    </div>
+    <ng-container *ngIf="!noDetails">
+    <div class="main__celcius">
+        <div class="main__country">
+            <img id="icon" [src]="icon">
+            <h2>{{celcius}} <span>&deg;</span></h2>
+            <div>
+                <img src="assets/Images/flag-of-india.svg" alt="">
+                <span>{{City}}, India</span>
+            </div>
+        </div>
+        <div class="main__weatherDetails">
+            <div *ngFor="let data of weatherDetails">
+                <img [src]="data.icon" alt="">
+                <span>{{data.details}} {{data.unit}}</span>
+               </div>
+        </div>
+    </div>
+        <img class="main__bgImg" src="assets/Images/boy-riding-cycle.svg" alt="main Image">
+    </ng-container>
+</div>

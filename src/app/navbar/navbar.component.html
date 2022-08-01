@@ -1,0 +1,10 @@
+<div class="navbar">
+  <div class="navbar__logo">
+    <span>Weather App</span>
+  </div>
+  <ul class="navbar__list">
+    <li class="navbar__item" [class.navbar__active]="router.url === '/'" routerLink="/">Home</li>
+    <li class="navbar__item" [class.navbar__active]="router.url === '/dashboard'" routerLink="/dashboard">Dashboard</li>
+    <li class="navbar__item">About app</li>
+  </ul>
+</div>

@@ -1,0 +1,25 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4rem 15rem;
+    &__active {
+        color: #34B3F1;
+        font-weight: 700;
+        font-size: 1.7rem;
+    }
+    &__logo span{
+        color: #100F0F;
+        font-weight: 500;
+        font-size: 2.5rem;
+    }
+    &__list {
+        display: flex;
+        column-gap: 3rem;
+        font-size: 1.6rem;
+        font-weight: 500;
+    }
+    &__item {
+        cursor: pointer;
+    }
+}

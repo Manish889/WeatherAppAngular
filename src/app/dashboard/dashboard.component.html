@@ -1,0 +1,127 @@
+<div class="dashboard">
+  <div class="dashboard__left">
+    <div class="dashboard__search">
+        <img class="dashboard__back" routerLink="/" src="assets/Images/back-arrow.svg" alt="">
+      <input type="text" placeholder="Search" #input (click)="onInput()" [(ngModel)]="searchValue" (keyup)="search.search(searchValue)">
+      <img src="assets/Images/search.svg" alt="">
+      <ul class="dashboard__search-list" >
+        <ng-container *ngFor="let item of (search.items | async); let i=index">
+          <li class="dashboard__search-item" *ngIf="afterSelected"
+          (click)="selectCity(item)" >
+             {{ item }}
+         </li>
+        </ng-container>
+      </ul>
+     <!-- <ul class="dashboard__search-list">
+      <li class="dashboard__search-item" >
+        Masi
+      </li>
+      <li class="dashboard__search-item" >
+        Masi
+      </li>
+      <li class="dashboard__search-item" >
+        Masi
+      </li>
+      <li class="dashboard__search-item" >
+        Masi
+      </li>
+     </ul> -->
+    </div>
+    <h1 class="dashboard__heading">Weather Forcast</h1>
+    
+    <div class="dashboard__forcast">
+      <div class="dashboard__cardBox">
+        <div class="dashboard__card dashboard__card--active">
+          <img src="assets/Images/red-fort.svg" class="dashboard__card-img"  alt="red-fort">
+          <p>New Delhi, India</p>
+        </div>
+        <div class="dashboard__card">
+          <img (click)="setCity()" src="assets/Images/red-fort.svg" class="dashboard__card-img dashboard__card-img--active" alt="red-fort">
+          <p>Almora, India</p>
+        </div>
+        <div class="dashboard__card">
+          <img src="assets/Images/red-fort.svg" class="dashboard__card-img" alt="red-fort">
+          <p>Nainital, India</p>
+        </div>
+        <div class="dashboard__card dashboard__card--add">
+          <img src="assets/Images/plus.svg"  alt="red-fort">
+          <!-- <p>Add City</p> -->
+        </div>
+      </div>
+
+      <div class="dashboard__tableBox">
+        <div>
+          <button class="dashboard__tableBox--btn dashboard__tableBox--btn-active">Week</button>
+          <button class="dashboard__tableBox--btn">Month</button>
+        </div>
+        <table class="dashboard__table">
+          <thead class="dashboard__table--header">
+            <tr>
+              <th>Day</th>
+              <th>Prediction</th>
+              <th>icon</th>
+              <th>Max temp</th>
+              <th>Min temp</th>
+              <th>Rain chances</th>
+              <th>temperature</th>
+            </tr>
+          </thead>
+          <tbody class="dashboard__table--body" >
+            <tr *ngFor="let item of cityUniqueList">
+              <td>{{item.date}}</td>
+              <td>50%</td>
+              <td><img src="assets/Images/rainy.svg" alt=""></td>
+              <td>{{item.MaxTemp}} &deg;</td>
+              <td>{{item.MinTemp}} &deg;</td>
+              <td>
+                <div class="dashboard__table--progressbar">
+                                <div></div>
+                            </div>
+              </td>
+              <td>{{item.Temp}} &deg;</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="dashboard__right">
+    <div class="dashboard__today">
+        <div class="dashboard__today--date">
+            <img src="assets/Images/rainy.svg" alt="">
+            <div>
+                <span>Today</span>
+                <span>Sat, 30 July</span>
+            </div>
+        </div>
+        <div class="dashboard__today--temp">
+            <h2>20&deg;<span>C</span></h2>
+            <span>Haldwani, India</span>
+            <div>
+                <span>Feels like 25&deg;</span>
+                <span>Sunset 17:00</span>
+            </div>
+        </div>
+    </div>
+    <div class="dashboard__bottom">
+        <h3>Chance of rain</h3>
+        <div class="dashboard__bars">
+            <div class="dashboard__bars--label">
+                <span>Sunny</span>
+                <span>Rainy</span>
+                <span>heavy Rain</span>
+            </div>
+            <div class="dashboard__bars--chart">
+                <div class="dashboard__bars--bar">
+                    <div class="dashboard__bars--bar-1">
+                        <div class="dashboard__bars--bar-2"></div>
+                    </div>
+                    <span>10AM</span>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
