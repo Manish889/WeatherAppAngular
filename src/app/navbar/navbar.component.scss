@@ -15,11 +15,51 @@
     }
     &__list {
         display: flex;
+        align-items: center;
         column-gap: 3rem;
         font-size: 1.6rem;
         font-weight: 500;
     }
     &__item {
         cursor: pointer;
+        position: relative;
+        > img {
+            position: absolute;
+            width: 3rem;
+            right: -0.1rem;
+            top: 0.2rem;
+            z-index: 1000;
+            cursor: pointer;
+          }
+    }
+    &__search {
+        border: 1px solid #34B3F1;
+      padding: 1rem 2rem;
+      border-radius: 5px;
+      width: 100%;
+      outline: none;
+      &::placeholder {
+        color: #bdbdbd;
+      }
+     
+      &-list {
+        position: absolute;
+        top: 110%;
+        left: 0;
+        width: 100%;
+        height: auto;
+        background-color: #fff;
+        border-radius: .5rem;
+      }
+      &-item {
+        border-bottom: 1px solid #eee;
+        padding: 1rem;
+        display: flex;
+        align-items: center;
+        font-size: 1.6rem;
+        font-weight: 400;
+        cursor: pointer;
+      }
+      
     }
 }

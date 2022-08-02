@@ -3,19 +3,33 @@
         <h2>Kindly allow location!</h2>
     </div>
     <ng-container *ngIf="!noDetails">
-    <div class="main__celcius">
+    <div class="main__celcius" *ngFor="let item of weatherDetails">
         <div class="main__country">
-            <img id="icon" [src]="icon">
-            <h2>{{celcius}} <span>&deg;</span></h2>
+            <img id="icon" [src]="item.Icon">
+            <h2>{{item.Temp}} <span>&deg;</span></h2>
             <div>
                 <img src="assets/Images/flag-of-india.svg" alt="">
-                <span>{{City}}, India</span>
+                <span>{{item.City}}, {{item.Country}}</span>
             </div>
         </div>
         <div class="main__weatherDetails">
-            <div *ngFor="let data of weatherDetails">
-                <img [src]="data.icon" alt="">
-                <span>{{data.details}} {{data.unit}}</span>
+            <div >
+                <img src="assets/Images/weather.svg" alt="">
+                <span>{{item.WindSpeed}} meter/sec</span>
+               </div>
+
+               <div >
+                <img src="assets/Images/weather (1).svg" alt="">
+                <span>{{item.Pressure}} hPa</span>
+               </div>
+
+               <div >
+                <img src="assets/Images/humidity.svg" alt="">
+                <span>{{item.Humidity}} %</span>
+               </div>
+               <div >
+                <img src="assets/Images/rain.svg" alt="">
+                <span>{{item.RainPrediction}}</span>
                </div>
         </div>
     </div>

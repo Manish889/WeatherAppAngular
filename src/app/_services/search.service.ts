@@ -50,7 +50,8 @@ export class SearchService {
   search(term: string) {
     if(term) {
       return this.term.next(term);
-    } else if(term == "" || term == " ") {
+    } 
+    else if(term == "" || term == " ") {
       return;
     }
   }

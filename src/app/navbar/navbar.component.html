@@ -3,6 +3,18 @@
     <span>Weather App</span>
   </div>
   <ul class="navbar__list">
+    <li class="navbar__item">
+      <input class="navbar__search" type="text" placeholder="Search" #input (click)="onInput()" [(ngModel)]="searchValue" (keyup)="search.search(searchValue)" (keyup.enter)="selectCity(searchValue)">
+      <img src="assets/Images/search.svg" alt="search" (click)="selectCity(searchValue)">
+      <ul class="navbar__search-list" >
+        <ng-container *ngFor="let item of (search.items | async); let i=index">
+          <li class="navbar__search-item" *ngIf="afterSelected"
+          (click)="selectCity(item)" >
+             {{ item }}
+         </li>
+        </ng-container>
+      </ul>
+    </li>
     <li class="navbar__item" [class.navbar__active]="router.url === '/'" routerLink="/">Home</li>
     <li class="navbar__item" [class.navbar__active]="router.url === '/dashboard'" routerLink="/dashboard">Dashboard</li>
     <li class="navbar__item">About app</li>
