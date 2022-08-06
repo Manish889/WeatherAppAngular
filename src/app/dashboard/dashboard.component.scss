@@ -10,8 +10,9 @@
     flex-direction: column;
     row-gap: 2rem;
     padding: 3rem 3rem 0;
+    overflow-y: auto;
   }
- 
+
   &__heading {
     font-size: 3.5rem;
     font-weight: 400;
@@ -31,11 +32,11 @@
     overflow: hidden;
     row-gap: 1rem;
     cursor: pointer;
-      >span {
-        font-size: 1.6rem;
-        font-weight: 400;
-        text-align: center;
-      }
+    > span {
+      font-size: 1.6rem;
+      font-weight: 400;
+      text-align: center;
+    }
     &-img {
       &--active {
         border: 4px solid #34b3f1;
@@ -74,13 +75,13 @@
         cursor: pointer;
       }
       &-list {
-      position: absolute;
-      top: 110%;
-      left: 0;
-      width: 100%;
-      height: auto;
-      background-color: #fff;
-      border-radius: .5rem;
+        position: absolute;
+        top: 110%;
+        left: 0;
+        width: 100%;
+        height: auto;
+        background-color: #fff;
+        border-radius: 0.5rem;
       }
       &-item {
         border-bottom: 1px solid #eee;
@@ -146,13 +147,13 @@
       cursor: pointer;
     }
     &-list {
-    position: absolute;
-    top: 110%;
-    left: 0;
-    width: 100%;
-    height: auto;
-    background-color: #fff;
-    border-radius: .5rem;
+      position: absolute;
+      top: 110%;
+      left: 0;
+      width: 100%;
+      height: auto;
+      background-color: #fff;
+      border-radius: 0.5rem;
     }
     &-item {
       border-bottom: 1px solid #eee;
@@ -166,24 +167,24 @@
   }
   &__search &__back {
     position: relative;
-}
+  }
 
   &__table {
     border-collapse: collapse;
     text-align: center;
     width: 100%;
+    // table-layout: fixed;
+
     &-wrapper {
       // width: 100%;
-      height: calc(100vh - 40rem);
-      overflow-y: auto;
+      // height: calc(100vh - 47rem);
+      // overflow-y: auto;
+      position: relative;
     }
-    thead tr th {
-      position: sticky;
-      top: 0;
-      background-color: #B1E1FF;
-      z-index: 1000;
+    &-scroll {
+     
     }
-    
+
     thead tr th,
     tbody tr td {
       padding: 1rem;
@@ -206,36 +207,43 @@
       }
     }
     &--header {
+      background-color: #b1e1ff;
       font-size: 1.4rem;
-      
     }
     &--body {
+      // display: block;
+      overflow: auto;
       margin-top: 2rem;
       font-size: 1.4rem;
       background-color: #ffffff80;
-      >tr >td > i {
+      > tr > td > i {
         font-size: 3rem;
       }
     }
   }
 
   &__right {
-    background-color: rgba($color: #000000, $alpha: .3);
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    row-gap: 4rem;
+    background-color: rgba($color: #000000, $alpha: 0.3);
+    // display: flex;
+    // flex-direction: column;
+    // justify-content: flex-start;
+    // row-gap: 4rem;
+    // align-items: center;
+    display: grid;
     align-items: center;
+    grid-template-rows: repeat(2, 1fr);
+    justify-items: center;
     position: relative;
     // text-align: center;
     height: 100%;
     width: 100%;
     z-index: 100;
-    padding: 4rem 4rem;
+    // padding: 4rem 4rem;
+    padding: 2rem;
     // overflow: hidden;
     &-panel {
       position: relative;
-      background-color: #1C3879;
+      background-color: #1c3879;
     }
     &-img {
       position: absolute;
@@ -285,14 +293,14 @@
       row-gap: 1rem;
       font-size: 1.3rem;
       font-weight: 400;
-      >div {
+      > div {
         & span:first-child {
           margin-right: 1rem;
         }
       }
       > h2 {
         font-size: 10rem;
-        font-weight: 400;
+        font-weight: 300;
         display: flex;
         align-items: flex-start;
         > span {
@@ -310,6 +318,8 @@
     grid-template-columns: repeat(2, 1fr);
     width: 100%;
     height: 100%;
+    // overflow-x: hidden;
+    // background-color: #ffffff70;
     &-weather {
       background-color: #ffffff90;
       border-radius: 1rem;
@@ -320,10 +330,10 @@
       row-gap: 2rem;
       width: 100%;
       height: 100%;
-      >img {
+      > img {
         width: 5rem;
       }
-      >span {
+      > span {
         color: #212121;
         font-weight: 400;
         font-size: 1.6rem;
@@ -382,4 +392,12 @@
       }
     }
   }
+}
+
+
+::ng-deep .ngx-charts .tick text {
+  text-anchor: start;
+  // font-size: 16px !important;
+  font-weight: 500;
+  color: red !important;
 }

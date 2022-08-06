@@ -10,6 +10,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
     HttpClientModule,
     ReactiveFormsModule,
     GooglePlaceModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    NgApexchartsModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },

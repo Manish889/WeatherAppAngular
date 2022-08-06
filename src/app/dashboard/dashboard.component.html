@@ -1,5 +1,10 @@
 <div class="dashboard">
   <div class="dashboard__left">
+    <!-- <form [formGroup]="dummyForm">
+      <input type="text" formControlName="any" name="" id="">
+      <button (click)="submit()">submit</button>
+    </form> -->
+    
     <div class="dashboard__search">
         <img class="dashboard__back" routerLink="/" src="assets/Images/back-arrow.svg" alt="">
       <input type="text" placeholder="Search" #input 
@@ -59,29 +64,31 @@
       </div>
 
       <div class="dashboard__tableBox">
-        <!-- <div>
-          <button class="dashboard__tableBox--btn dashboard__tableBox--btn-active">Daily</button>
-          <button class="dashboard__tableBox--btn">Week</button>
-          <button class="dashboard__tableBox--btn">Month</button>
-        </div> -->
+        <div>
+          <button [ngClass]="(buttonName == 'today')? 'dashboard__tableBox--btn-active': ''" class="dashboard__tableBox--btn" (click)="onWeatherSwitch($event, 'today')">Today</button>
+          <button [ngClass]="(buttonName == 'daily')? 'dashboard__tableBox--btn-active': ''" class="dashboard__tableBox--btn" (click)="onWeatherSwitch($event, 'daily')">Daily</button>
+          <!-- <button class="dashboard__tableBox--btn" (click)="onWeatherSwitch($event, 'week')">Week</button> -->
+          <!-- <button class="dashboard__tableBox--btn">Month</button> -->
+        </div>
         <div class="dashboard__table-wrapper">
+        <div class="dashboard__table-scroll">
         <table class="dashboard__table">
           <thead class="dashboard__table--header">
             <tr>
-              <th>Day</th>
+              <th>{{(weatherSwitch ? "Time" : "Day")}}</th>
               <th>Weather Description</th>
               <th></th>
               <!-- <th>Feels like</th> -->
               <th>Rain chances</th>
               <th>Max temp</th>
+              <th>Min temp</th>
               <th>Humidity</th>
               <th>Pressure</th>
               <th>Temperature</th>
             </tr>
           </thead>
-          
-          <tbody class="dashboard__table--body" >
-            <tr *ngFor="let item of cityUniqueList">
+          <tbody class="dashboard__table--body" > 
+            <tr *ngFor="let item of (weatherSwitch ? dailyForcastList : cityUniqueList)">
               <td>{{item.date}}</td>
               <td>{{item.weather}}</td>
               <td><i class="owi owi-{{item.IconCode}}" alt=""></i></td>
@@ -91,13 +98,15 @@
                                 <div [ngStyle]="{'width': item.RainPrediction}"></div>
                             </div>
               </td>
-              <td>{{item.MaxTemp}} &deg;</td>
+              <td>{{item.MaxTemp}} &deg; C</td>
+              <td>{{item.MinTemp}} &deg; C</td>
               <td>{{item.Humidity}}%</td>
               <td>{{item.Pressure}} hPa</td>
-              <td>{{item.Temp}} &deg;</td>
+              <td>{{item.Temp}} &deg; C</td>
             </tr>
           </tbody>
         </table>
+        </div>
       </div>
       </div>
     </div>
@@ -106,8 +115,8 @@
 
   <div class="dashboard__right-panel" *ngFor="let item of activeCityList">
     <!-- <img [src]="getImages()" alt="" class="dashboard__right-img"> -->
-    <div class="dashboard__right">
-      <div class="dashboard__today">
+    <div class="dashboard__right" >
+      <div class="dashboard__today" >
         <div class="dashboard__today--date">
             <img [src]="item.Icon" alt="">
             <div>
@@ -125,7 +134,7 @@
         </div>
     </div>
 
-    <div class="dashboard__bottom">
+    <div class="dashboard__bottom" >
       <div class="dashboard__bottom-weather">
         <img [src]="item.Icon" alt="">
         <span>{{item.weather}}</span>
@@ -142,6 +151,17 @@
         <img src="assets/Images/water-level.svg" alt="">
         <span>{{item.SeaLevel}} meters</span>
       </div>
+      <!-- <div id="chart">
+        <apx-chart
+          [series]="chartOptions.series"
+          [chart]="chartOptions.chart"
+          [xaxis]="chartOptions.xaxis"
+          [dataLabels]="chartOptions.dataLabels"
+          [grid]="chartOptions.grid"
+          [stroke]="chartOptions.stroke"
+          [title]="chartOptions.title"
+        ></apx-chart>
+      </div> -->
     </div>
     </div>
   </div>
