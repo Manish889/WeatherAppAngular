@@ -1,0 +1,168 @@
+<div class="dashboard">
+  <div class="dashboard__left">
+    <!-- <form [formGroup]="dummyForm">
+      <input type="text" formControlName="any" name="" id="">
+      <button (click)="submit()">submit</button>
+    </form> -->
+
+    <div class="dashboard__search">
+        <!-- <img class="dashboard__back" routerLink="/" src="assets/Images/back-arrow.svg" alt=""> -->
+      <input type="text" placeholder="Search" #input
+      ngx-google-places-autocomplete
+      (onAddressChange)="handleAddressChange($event)"
+       (click)="selectCity()"
+      (keyup.enter)="selectCity()"
+      [(ngModel)]="searchValue">
+      <!-- (click)="onInput()" -->
+      <!-- [(ngModel)]="searchValue"  -->
+      <!-- (keyup)="search.search(searchValue)"  -->
+      <img src="assets/Images/search.svg" alt="search" (click)="selectCity()">
+      <!-- <ul class="dashboard__search-list" >
+        <ng-container *ngFor="let item of (search.items | async); let i=index">
+          <li class="dashboard__search-item" *ngIf="afterSelected"
+          (click)="selectCity(item)" >
+             {{ item }}
+         </li>
+        </ng-container>
+      </ul> -->
+    </div>
+    <h1 class="dashboard__heading">Weather Forcast</h1>
+
+    <div class="dashboard__forcast">
+      <div class="dashboard__cardBox">
+        <div class="dashboard__card" *ngFor="let item of activeCityList; let i=index">
+          <!-- <div class="dashboard__card-imgBox"> -->
+          <ng-container *ngIf="CitySearched">
+            <img
+            #activecity
+            [src]="item.ImgSrc"
+            class="dashboard__card-img"
+            [class.dashboard__card-img--searched]="activeCity"
+            alt="red-fort">
+          <p>{{item.City}}, {{item.Country}}</p>
+          </ng-container>
+          <ng-container *ngIf="!CitySearched">
+            <span>Please Search for any city</span>
+          </ng-container>
+        <!-- </div> -->
+        </div>
+        <div class="dashboard__card" *ngFor="let item of cityList; let i=index">
+          <img (click)="setCity(i)" #activecity
+          [src]="item.ImgSrc"
+          [ngClass]="((noActiveCity == false) || (activeCityIndex === i)) ? 'dashboard__card-img--active': ''" class="dashboard__card-img{{i}}" alt="red-fort">
+          <p>{{item.City}}, {{item.Country}}</p>
+        </div>
+
+        <div class="dashboard__card dashboard__card--add">
+          <img src="assets/Images/plus.svg"  alt="red-fort" *ngIf="!isAddCity"  (click)="onAddCity()">
+          <!-- <p>Add City</p> -->
+        <ng-container *ngIf="isAddCity">
+          <input type="text" placeholder="Add City" #input
+          (click)="onInput()" [(ngModel)]="addCityValue" (keyup.enter)="addCity(addCityValue)">
+        </ng-container>
+        </div>
+      </div>
+
+      <div class="dashboard__tableBox">
+        <div>
+          <button [ngClass]="(buttonName == 'today')? 'dashboard__tableBox--btn-active': ''" class="dashboard__tableBox--btn" (click)="onWeatherSwitch($event, 'today')">Today</button>
+          <button [ngClass]="(buttonName == 'daily')? 'dashboard__tableBox--btn-active': ''" class="dashboard__tableBox--btn" (click)="onWeatherSwitch($event, 'daily')">Daily</button>
+          <!-- <button class="dashboard__tableBox--btn" (click)="onWeatherSwitch($event, 'week')">Week</button> -->
+          <!-- <button class="dashboard__tableBox--btn">Month</button> -->
+        </div>
+        <div class="dashboard__table-wrapper">
+        <div class="dashboard__table-scroll">
+        <table class="dashboard__table">
+          <thead class="dashboard__table--header">
+            <tr>
+              <th>{{(weatherSwitch ? "Time" : "Day")}}</th>
+              <th>Weather Description</th>
+              <th></th>
+              <!-- <th>Feels like</th> -->
+              <th>Rain chances</th>
+              <th>Max temp</th>
+              <th>Min temp</th>
+              <th>Humidity</th>
+              <th>Pressure</th>
+              <th>Temperature</th>
+            </tr>
+          </thead>
+          <tbody class="dashboard__table--body" >
+            <tr *ngFor="let item of (weatherSwitch ? dailyForcastList : cityUniqueList)">
+              <td>{{item.date}}</td>
+              <td>{{item.weather}}</td>
+              <td><i class="owi owi-{{item.IconCode}}" alt=""></i></td>
+              <!-- <td>{{item.FeelsLike}} &deg;</td> -->
+              <td>
+                <div class="dashboard__table--progressbar">
+                                <div [ngStyle]="{'width': item.RainPrediction}"></div>
+                            </div>
+              </td>
+              <td>{{item.MaxTemp}} &deg; C</td>
+              <td>{{item.MinTemp}} &deg; C</td>
+              <td>{{item.Humidity}}%</td>
+              <td>{{item.Pressure}} hPa</td>
+              <td>{{item.Temp}} &deg; C</td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="dashboard__right-panel" *ngFor="let item of activeCityList" style="display: none;">
+    <!-- <img [src]="getImages()" alt="" class="dashboard__right-img"> -->
+    <div class="dashboard__right" >
+      <div class="dashboard__today" >
+        <div class="dashboard__today--date">
+            <img [src]="item.Icon" alt="">
+            <div>
+                <span>Today</span>
+                <span>{{item.dateTxt}}</span>
+            </div>
+        </div>
+        <div class="dashboard__today--temp">
+            <h2>{{item.Temp}}&deg;<span>C</span></h2>
+            <span>{{item.City}}, {{item.Country}}</span>
+            <div>
+                <span>Feels like: {{item.FeelsLike}} &deg;</span>
+                <span>Sunset: {{item.Sunset}}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="dashboard__bottom" >
+      <div class="dashboard__bottom-weather">
+        <img [src]="item.Icon" alt="">
+        <span>{{item.weather}}</span>
+      </div>
+      <div class="dashboard__bottom-weather">
+        <img src="assets/Images/weather.svg" alt="">
+        <span>{{item.WindSpeed}} km/hr</span>
+      </div>
+      <div class="dashboard__bottom-weather">
+        <img src="assets/Images/weather (1).svg" alt="">
+        <span>{{item.Pressure}} mBar</span>
+      </div>
+      <div class="dashboard__bottom-weather">
+        <img src="assets/Images/water-level.svg" alt="">
+        <span>{{item.SeaLevel}} meters</span>
+      </div>
+      <!-- <div id="chart">
+        <apx-chart
+          [series]="chartOptions.series"
+          [chart]="chartOptions.chart"
+          [xaxis]="chartOptions.xaxis"
+          [dataLabels]="chartOptions.dataLabels"
+          [grid]="chartOptions.grid"
+          [stroke]="chartOptions.stroke"
+          [title]="chartOptions.title"
+        ></apx-chart>
+      </div> -->
+    </div>
+    </div>
+  </div>
+</div>

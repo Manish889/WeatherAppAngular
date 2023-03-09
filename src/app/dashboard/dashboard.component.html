@@ -1,121 +1,200 @@
 <div class="dashboard">
   <div class="dashboard__left">
-    <!-- <form [formGroup]="dummyForm">
-      <input type="text" formControlName="any" name="" id="">
-      <button (click)="submit()">submit</button>
-    </form> -->
-    
     <div class="dashboard__search">
-        <img class="dashboard__back" routerLink="/" src="assets/Images/back-arrow.svg" alt="">
-      <input type="text" placeholder="Search" #input 
-      ngx-google-places-autocomplete 
+      <input type="text" placeholder="Search" #input
+      ngx-google-places-autocomplete
       (onAddressChange)="handleAddressChange($event)"
        (click)="selectCity()"
       (keyup.enter)="selectCity()"
       [(ngModel)]="searchValue">
-      <!-- (click)="onInput()" -->
-      <!-- [(ngModel)]="searchValue"  -->
-      <!-- (keyup)="search.search(searchValue)"  -->
       <img src="assets/Images/search.svg" alt="search" (click)="selectCity()">
-      <!-- <ul class="dashboard__search-list" >
-        <ng-container *ngFor="let item of (search.items | async); let i=index">
-          <li class="dashboard__search-item" *ngIf="afterSelected"
-          (click)="selectCity(item)" >
-             {{ item }}
-         </li>
-        </ng-container>
-      </ul> -->
     </div>
-    <h1 class="dashboard__heading">Weather Forcast</h1>
-    
+    <!-- <h1 class="dashboard__heading">Weather Forcast</h1> -->
+
     <div class="dashboard__forcast">
-      <div class="dashboard__cardBox">
-        <div class="dashboard__card" *ngFor="let item of activeCityList; let i=index">
-          <!-- <div class="dashboard__card-imgBox"> -->
-          <ng-container *ngIf="CitySearched">
-            <img 
-            #activecity 
-            [src]="item.ImgSrc" 
-            class="dashboard__card-img"
-            [class.dashboard__card-img--searched]="activeCity"
-            alt="red-fort">
-          <p>{{item.City}}, {{item.Country}}</p>
-          </ng-container>
-          <ng-container *ngIf="!CitySearched">
-            <span>Please Search for any city</span>
-          </ng-container>
-        <!-- </div> -->
+      <div class="dashboard__forcast-left" *ngFor="let item of activeCityList">
+        <div>
+          <span>{{item.City}}, {{item.Country}}</span>
+          <span>{{item.dateTxt}}</span>
         </div>
-        <div class="dashboard__card" *ngFor="let item of cityList; let i=index">
-          <img (click)="setCity(i)" #activecity 
-          [src]="item.ImgSrc" 
-          [ngClass]="((noActiveCity == false) || (activeCityIndex === i)) ? 'dashboard__card-img--active': ''" class="dashboard__card-img{{i}}" alt="red-fort">
-          <p>{{item.City}}, {{item.Country}}</p>
+        <div>
+          <h1>{{item.Temp}} <span>&deg;C</span> </h1>
+        <span>{{item.weather}}</span>
         </div>
-        
-        <div class="dashboard__card dashboard__card--add">
-          <img src="assets/Images/plus.svg"  alt="red-fort" *ngIf="!isAddCity"  (click)="onAddCity()">
-          <!-- <p>Add City</p> -->
-        <ng-container *ngIf="isAddCity">
-          <input type="text" placeholder="Add City" #input 
-          (click)="onInput()" [(ngModel)]="addCityValue" (keyup.enter)="addCity(addCityValue)">
-        </ng-container>
+        <div>
+        <div>
+          <img src="assets/Images/weather (1).svg" alt="">
+          <span>{{item.Pressure}} mBar</span>
         </div>
+        <div >
+          <img src="assets/Images/water-level.svg" alt="">
+          <span>{{item.SeaLevel}} mtr</span>
+        </div>
+        <div >
+          <img src="assets/Images/weather.svg" alt="">
+          <span>{{item.WindSpeed}} km/hr</span>
+        </div>
+        </div>
+      </div>
+      <div class="dashboard__forcast-right" id="chart">
+        <!-- <apx-chart
+          [series]="chartOptions.series"
+          [chart]="chartOptions.chart"
+          [xaxis]="chartOptions.xaxis"
+          [stroke]="chartOptions.stroke"
+          [dataLabels]="chartOptions.dataLabels"
+          [yaxis]="chartOptions.yaxis"
+          [labels]="chartOptions.labels"
+          [legend]="chartOptions.legend"
+          [title]="chartOptions.title"
+          [subtitle]="chartOptions.subtitle"
+          [grid]="chartOptions.grid"
+          [tooltip]="chartOptions.tooltip"
+          [fill]="chartOptions.fill"
+        ></apx-chart> -->
+
+        <apx-chart
+        [series]="chartOptions.series"
+        [chart]="chartOptions.chart"
+        [xaxis]="chartOptions.xaxis"
+        [dataLabels]="chartOptions.dataLabels"
+        [grid]="chartOptions.grid"
+        [stroke]="chartOptions.stroke"
+        [title]="chartOptions.title"
+        [markers]="chartOptions.markers"
+        [yaxis]="chartOptions.yaxis"
+        [fill]="chartOptions.fill"
+        [labels]="chartOptions.labels"
+        [tooltip]="chartOptions.tooltip"
+      ></apx-chart>
+
+        <!-- <div style="display: block;">
+          <canvas baseChart width="400" height="400"
+            [type]="'line'"
+            [data]="lineChartData"
+            [options]="lineChartOptions"
+            [legend]="lineChartLegend">
+          </canvas>
+        </div> -->
+
+      </div>
+     </div>
+
+     <!-- <div class="dashboard__cards" *ngFor="let item of activeCityList"> -->
+     <div class="dashboard__cards" *ngFor="let item of activeCityList">
+      <div>
+       <div>
+        <span>Wind</span>
+        <p>Today wind speed</p>
+        <span>{{item.WindSpeed}} km/h</span>
+       </div>
+       <div>
+        <div class="dashboard__cards-compass">
+          <span>N</span>
+          <span>E</span>
+          <span>S</span>
+          <span>W</span>
+          <img src="assets/Images/arrow.svg" alt="" [style.rotate]="item.windDirection">
+        </div>
+       </div>
       </div>
 
-      <div class="dashboard__tableBox">
+      <div>
         <div>
-          <button [ngClass]="(buttonName == 'today')? 'dashboard__tableBox--btn-active': ''" class="dashboard__tableBox--btn" (click)="onWeatherSwitch($event, 'today')">Today</button>
-          <button [ngClass]="(buttonName == 'daily')? 'dashboard__tableBox--btn-active': ''" class="dashboard__tableBox--btn" (click)="onWeatherSwitch($event, 'daily')">Daily</button>
-          <!-- <button class="dashboard__tableBox--btn" (click)="onWeatherSwitch($event, 'week')">Week</button> -->
-          <!-- <button class="dashboard__tableBox--btn">Month</button> -->
+         <span>Rain Chances</span>
+         <p>Today rain chances</p>
+         <span>{{avgRainchanges}} %</span>
         </div>
-        <div class="dashboard__table-wrapper">
-        <div class="dashboard__table-scroll">
-        <table class="dashboard__table">
-          <thead class="dashboard__table--header">
-            <tr>
-              <th>{{(weatherSwitch ? "Time" : "Day")}}</th>
-              <th>Weather Description</th>
-              <th></th>
-              <!-- <th>Feels like</th> -->
-              <th>Rain chances</th>
-              <th>Max temp</th>
-              <th>Min temp</th>
-              <th>Humidity</th>
-              <th>Pressure</th>
-              <th>Temperature</th>
-            </tr>
-          </thead>
-          <tbody class="dashboard__table--body" > 
-            <tr *ngFor="let item of (weatherSwitch ? dailyForcastList : cityUniqueList)">
-              <td>{{item.date}}</td>
-              <td>{{item.weather}}</td>
-              <td><i class="owi owi-{{item.IconCode}}" alt=""></i></td>
-              <!-- <td>{{item.FeelsLike}} &deg;</td> -->
-              <td>
-                <div class="dashboard__table--progressbar">
-                                <div [ngStyle]="{'width': item.RainPrediction}"></div>
-                            </div>
-              </td>
-              <td>{{item.MaxTemp}} &deg; C</td>
-              <td>{{item.MinTemp}} &deg; C</td>
-              <td>{{item.Humidity}}%</td>
-              <td>{{item.Pressure}} hPa</td>
-              <td>{{item.Temp}} &deg; C</td>
-            </tr>
-          </tbody>
-        </table>
+        <div>
+         <div class="dashboard__cards-rainchancepredc">
+          <svg>
+            <circle cx="60" cy="60" r="50"></circle>
+            <circle cx="60" cy="60" r="50" [style.--percent]="avgRainchanges"></circle>
+          </svg>
+          <span>{{avgRainchancesText}}</span>
+         </div>
         </div>
-      </div>
-      </div>
-    </div>
+       </div>
+
+       <div>
+        <div>
+         <span>Pressure</span>
+         <p>Today Pressure</p>
+         <span>{{item.Pressure}} mBar</span>
+        </div>
+        <div>
+         <div class="dashboard__cards-pressuremeter">
+            <div id="pressurechart">
+              <apx-chart
+                [series]="PressureChart.series"
+                [chart]="PressureChart.chart"
+                [plotOptions]="PressureChart.plotOptions"
+                [labels]="PressureChart.labels"
+                [stroke]="PressureChart.stroke"
+                [fill]="PressureChart.fill"
+              ></apx-chart>
+            </div>
+         </div>
+        </div>
+       </div>
+
+       <div>
+        <div>
+         <span>Air Quality</span>
+         <p>Today Air Quality</p>
+         <span>{{item.aqi[0]}}</span>
+        </div>
+        <div>
+         <div class="dashboard__cards-pressuremeter">
+            <div id="airqualitychart">
+              <apx-chart
+                [series]="airqualityChart.series"
+                [chart]="airqualityChart.chart"
+                [plotOptions]="airqualityChart.plotOptions"
+                [labels]="airqualityChart.labels"
+                [stroke]="airqualityChart.stroke"
+                [fill]="airqualityChart.fill"
+              ></apx-chart>
+            </div>
+         </div>
+        </div>
+       </div>
+
+       <div>
+        <div>
+         <span>UV Index</span>
+         <p>Today UV Index</p>
+         <span>{{UvIndex}}</span>
+        </div>
+        <div>
+         <div class="dashboard__cards-rainchancepredc">
+          <svg>
+            <circle cx="60" cy="60" r="50"></circle>
+            <circle cx="60" cy="60" r="50" [style.--percent]="UvIndex" [style.stroke]="getuvcolors()"></circle>
+          </svg>
+          <span>{{UvIndexText}}</span>
+         </div>
+        </div>
+       </div>
+     </div>
   </div>
 
 
-  <div class="dashboard__right-panel" *ngFor="let item of activeCityList">
-    <!-- <img [src]="getImages()" alt="" class="dashboard__right-img"> -->
-    <div class="dashboard__right" >
+  <div class="dashboard__right-panel" >
+    <h1>Weather Forcast</h1>
+    <div class="dashboard__right-currentweek">
+      <span>Today</span>
+      <table class="dashboard__table">
+        <tbody class="dashboard__table--body" >
+          <tr *ngFor="let item of cityUniqueList; let i=index;">
+            <td>{{item.date}}</td>
+            <td>{{item.Temp}} &deg; C</td>
+            <td><i class="owi owi-{{item.IconCode}}" alt=""></i></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- <div class="dashboard__right" >
       <div class="dashboard__today" >
         <div class="dashboard__today--date">
             <img [src]="item.Icon" alt="">
@@ -151,18 +230,7 @@
         <img src="assets/Images/water-level.svg" alt="">
         <span>{{item.SeaLevel}} meters</span>
       </div>
-      <!-- <div id="chart">
-        <apx-chart
-          [series]="chartOptions.series"
-          [chart]="chartOptions.chart"
-          [xaxis]="chartOptions.xaxis"
-          [dataLabels]="chartOptions.dataLabels"
-          [grid]="chartOptions.grid"
-          [stroke]="chartOptions.stroke"
-          [title]="chartOptions.title"
-        ></apx-chart>
-      </div> -->
     </div>
-    </div>
+    </div> -->
   </div>
 </div>

@@ -1,0 +1,22 @@
+.sidebar {
+  padding: 5rem 2rem;
+  &__logo {
+    span {
+      font-size: 2rem;
+    }
+  }
+  &__list {
+    padding-top: 3rem;
+  }
+  &__item {
+    padding: 2rem 0;
+    font-size: 1.6rem;
+    cursor: pointer;
+    &.active {
+      color: #fff;
+      border-radius: 1rem;
+      padding: 2rem 1rem;
+      background-color: #1c3879;
+    }
+  }
+}

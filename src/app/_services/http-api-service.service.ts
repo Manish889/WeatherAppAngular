@@ -48,6 +48,49 @@ export class HttpApiServiceService {
     );
   }
 
+  airQualityApi(obj: any): Observable<any> {
+    let params = new HttpParams();
+    for (var key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        params = params.append(key, obj[key]);
+      }
+    }
+    return this.http.get<any>(
+      `https://api.openweathermap.org/data/2.5/air_pollution?appid=${this.apiKey}&units=metric`,
+      { params: params }
+    );
+  }
+
+  getCordinates(obj: any): Observable<any> {
+    let params = new HttpParams();
+    for (var key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        params = params.append(key, obj[key]);
+      }
+    }
+    return this.http.get<any>(
+      `http://api.openweathermap.org/geo/1.0/direct?appid=${this.apiKey}`,
+      { params: params }
+    );
+  }
+
+  weatherbitapi(obj: any): Observable<any> {
+    let params = new HttpParams();
+    for (var key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        params = params.append(key, obj[key]);
+      }
+    }
+    return this.http.get<any>(
+      `https://api.weatherbit.io/v2.0/current?key=ab8317505e44486aaa3b725feaa72a5f`,
+      { params: params }
+    );
+  }
+
+  weathermap(layer: any,z?:number,x?:number, y?:number) {
+    return this.http.get<any>(`https://tile.openweathermap.org/map/${layer}/${z}/${x}/${y}.png?appid=${this.apiKey}`)
+  }
+
   getApi(api: string, obj: any): Observable<any> {
     let params = new HttpParams();
     for (var key in obj) {

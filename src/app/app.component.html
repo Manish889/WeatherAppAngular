@@ -1,4 +1,11 @@
 <div id="MainBody">
-    <app-navbar *ngIf="ondashboard"></app-navbar>
-    <router-outlet></router-outlet>
+    <!-- <app-navbar *ngIf="ondashboard"></app-navbar> -->
+    <div class="dashboard">
+      <div>
+        <app-sidebar></app-sidebar>
+      </div>
+     <div>
+      <router-outlet></router-outlet>
+     </div>
+    </div>
 </div>
