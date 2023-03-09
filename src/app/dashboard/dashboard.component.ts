@@ -424,11 +424,11 @@ export class DashboardComponent implements OnInit {
       lon: '',
     });
 
-    // this.getUVIndex({
-    //   cityNameQuery: cityList[1]['City'],
-    //   lat: '',
-    //   lon: '',
-    // })
+    this.getUVIndex({
+      cityNameQuery: cityList[1]['City'],
+      lat: '',
+      lon: '',
+    })
 
   }
 
