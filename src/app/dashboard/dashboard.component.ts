@@ -92,6 +92,7 @@ export class DashboardComponent implements OnInit {
   cityUniqueList: any[];
   avgRainchanges: string | number;
   avgRainchancesText: string;
+  avgRainchancesColor: string;
   UvIndex: any;
   UvIndexText: any;
 
@@ -464,6 +465,8 @@ export class DashboardComponent implements OnInit {
       })
   }
 
+
+
   getuvcolors() {
     if(this.UvIndex <= 2) {
       return "#367E18"
@@ -599,7 +602,7 @@ export class DashboardComponent implements OnInit {
 
           });
 
-          this.avgRainchanges = Number(rainchances.reduce((p:any,c:any) => p + c, 0) / rainchances.length);
+          this.avgRainchanges = +((rainchances.reduce((p:any,c:any) => p + c, 0) / rainchances.length)).toFixed(2);
           // this.chartOptions.xaxis.categories = chartlabeldata;
           this.chartOptions.labels = chartlabeldata;
           console.log(this.chartOptions);
@@ -607,10 +610,13 @@ export class DashboardComponent implements OnInit {
 
           if(this.avgRainchanges < 50) {
             this.avgRainchancesText = "Low"
+            this.avgRainchancesColor = "#367E18"
           } else if(this.avgRainchanges > 50 && this.avgRainchanges < 75) {
             this.avgRainchancesText = "Medium"
+            this.avgRainchancesColor = "#E14D2A"
           } else if(this.avgRainchanges > 75) {
             this.avgRainchancesText = "High"
+            this.avgRainchancesColor = "#9C2C77"
           }
           this.chartOptions.series = [{name: "Temperature", data: chartseriesdata}]
 
@@ -698,6 +704,10 @@ export class DashboardComponent implements OnInit {
 
       });
 
+  }
+
+  getWeatherImages(): string {
+    return "https://images.unsplash.com/photo-1533736405784-798e2e103a3f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=871&q=80"
   }
 
 selectCity() {

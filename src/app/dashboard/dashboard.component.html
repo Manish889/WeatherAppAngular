@@ -11,8 +11,11 @@
     </div>
     <!-- <h1 class="dashboard__heading">Weather Forcast</h1> -->
 
-    <div class="dashboard__forcast">
-      <div class="dashboard__forcast-left" *ngFor="let item of activeCityList">
+    <div class="dashboard__forcast" *ngFor="let item of activeCityList">
+      <div class="dashboard__forcast-bgImage"
+       [style.background-image]="'url(' + getWeatherImages() +')'"></div>
+       <div class="dashboard__forcast-bgImage-overlay"></div>
+       <div class="dashboard__forcast-left" >
         <div>
           <span>{{item.City}}, {{item.Country}}</span>
           <span>{{item.dateTxt}}</span>
@@ -37,22 +40,6 @@
         </div>
       </div>
       <div class="dashboard__forcast-right" id="chart">
-        <!-- <apx-chart
-          [series]="chartOptions.series"
-          [chart]="chartOptions.chart"
-          [xaxis]="chartOptions.xaxis"
-          [stroke]="chartOptions.stroke"
-          [dataLabels]="chartOptions.dataLabels"
-          [yaxis]="chartOptions.yaxis"
-          [labels]="chartOptions.labels"
-          [legend]="chartOptions.legend"
-          [title]="chartOptions.title"
-          [subtitle]="chartOptions.subtitle"
-          [grid]="chartOptions.grid"
-          [tooltip]="chartOptions.tooltip"
-          [fill]="chartOptions.fill"
-        ></apx-chart> -->
-
         <apx-chart
         [series]="chartOptions.series"
         [chart]="chartOptions.chart"
@@ -109,7 +96,7 @@
          <div class="dashboard__cards-rainchancepredc">
           <svg>
             <circle cx="60" cy="60" r="50"></circle>
-            <circle cx="60" cy="60" r="50" [style.--percent]="avgRainchanges"></circle>
+            <circle cx="60" cy="60" r="50" [style.--percent]="avgRainchanges" [style.stroke]="avgRainchancesColor"></circle>
           </svg>
           <span>{{avgRainchancesText}}</span>
          </div>
