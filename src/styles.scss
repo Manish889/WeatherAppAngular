@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import './assets/CustomIcons/Icon/Style/css/open-weather-icons.css';
+@import './app/_assets/scss/main.scss';
 // @import './assets/CustomIcons/open-weather-icons/dist/fonts/OpenWeatherIcons.ttf';
 *,
 *::before,
@@ -46,7 +47,7 @@ button {
 }
 
 /* loader css */
-  
+
   #loadericon{
     z-index: 10000 !important;
     position: fixed;
@@ -60,27 +61,26 @@ button {
     -moz-animation:spin 4s linear infinite;
     animation:spin 2s linear infinite;
   }
-  
+
   .loaderBackground{
     opacity: 0.2 !important;
     pointer-events: none !important;
   }
-  
+
 //   @keyframes spin {
 //     100% { transform: rotate(360deg); }
 //   }
-  
 
-  @-moz-keyframes spin { 
-    100% { -moz-transform: rotate(360deg); } 
+
+  @-moz-keyframes spin {
+    100% { -moz-transform: rotate(360deg); }
 }
-@-webkit-keyframes spin { 
-    100% { -webkit-transform: rotate(360deg); } 
+@-webkit-keyframes spin {
+    100% { -webkit-transform: rotate(360deg); }
 }
-@keyframes spin { 
-    100% { 
-        -webkit-transform: rotate(360deg); 
-        transform:rotate(360deg); 
-    } 
+@keyframes spin {
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform:rotate(360deg);
+    }
 }
-  

@@ -16,6 +16,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { SavedLocationComponent } from './saved-location/dashboard.component';
 import { NgChartsModule } from 'ng2-charts';
 import { WeathermapComponent } from './weathermap/weathermap.component';
+import { CropSuggestionComponent } from './crop-suggestion/crop-suggestion.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { WeathermapComponent } from './weathermap/weathermap.component';
     DashboardComponent,
     SidebarComponent,
     SavedLocationComponent,
-    WeathermapComponent
+    WeathermapComponent,
+    CropSuggestionComponent
   ],
   imports: [
     BrowserModule,

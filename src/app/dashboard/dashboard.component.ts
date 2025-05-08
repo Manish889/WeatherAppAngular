@@ -101,7 +101,8 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     readonly search: SearchService,
-    private apiService: HttpApiServiceService
+    private apiService: HttpApiServiceService,
+    private router: Router
   ) {
     // this.chartOptions = {
     //   series: [
@@ -727,6 +728,10 @@ selectCity() {
   //   },
   // ];
 
+}
+
+routeToCropSuggestion() {
+  this.router.navigate(['/crop-suggestion'])
 }
 
 
